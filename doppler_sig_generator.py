@@ -61,7 +61,7 @@ wav.write("sig1_target_moving_away.wav", SAMPLING_RATE, sig1_IF.astype(np.int16)
 # sig 2: target starting far then moving closer to the sensor
 sig2_pos_t = np.zeros(len(t))
 sig2_pos_t0 = 6 #m away from radar
-sig2_v = 1 #m/s moving away from sensor
+sig2_v = -1 #m/s moving away from sensor
 
 for i in range(len(sig2_pos_t)):
     sig2_pos_t[i] = sig2_pos_t0 + t[i] * sig2_v
