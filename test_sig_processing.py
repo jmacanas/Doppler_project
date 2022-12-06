@@ -10,7 +10,7 @@ wf = wave.open(sys.argv[1], 'rb')
 rate, data = wav.read(sys.argv[1])
 fs = wf.getframerate()
 
-f,t_spec,s = sig.spectrogram(data, fs, nperseg = 2048)
+f,t_spec,s = sig.spectrogram(data, fs, nperseg = 1024, scaling = "spectrum")
 plt.pcolormesh(t_spec,f,s, norm=colors.LogNorm(vmin=s.min(), vmax = s.max()), shading='auto')
 plt.title(" Spectrogram")
 plt.ylabel('Frequency (Hz)')
@@ -23,7 +23,9 @@ for i in range(len(f)):
     if f[i] < stopband:
         continue
     stopband_index = i
+    print(stopband_index)
     break
+
 
 #peak mag tracker
 peak_mag = np.zeros(len(t_spec))
