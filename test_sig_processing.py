@@ -25,13 +25,42 @@ for i in range(len(f)):
     stopband_index = i
     print(stopband_index)
     break
+# noise floor measurement
+high_f_bands = s[-stopband_index:, :]
+noise_floor = np.mean(high_f_bands)
 
-
+n_frames = 5
+avg_frames = np.ones(n_frames) 
+for i in range(len(peak_mag)):
+    #pick up here !!!!!!
+   
 #peak mag tracker
 peak_mag = np.zeros(len(t_spec))
 for i in range(len(t_spec)):
     peak_mag[i] = np.max(s[:stopband_index, i]) #scans up to stopband and collects max amp for every time slice
 
-plt.plot(t_spec,np.log10(peak_mag))
+
+
+# trendline
+# chunks_per_sec = 43
+# window = np.ones(chunks_per_sec) * noise_floor +0.1
+# poly_coeff = np.zeros((2,len(peak_mag)))
+# trend_detection_time = np.linspace(-0.5, 0.5, chunks_per_sec, endpoint = True)
+# for i in range(len(peak_mag)):
+#     window = np.append(window, peak_mag[i]+0.000001)
+#     window = window[1:]
+    
+#     coeff = np.polyfit(trend_detection_time, np.log10(window), deg = 1)
+#     poly_coeff[0][i] = coeff[0]
+#     poly_coeff[1][i] = coeff[1]
+
+# n frame averaging:
+n_frames = 5
+avg_frames = np.ones(n_frames) * noise_floor
+for i in range(len(peak_mag)):
+    
+
+
+fig, ax= plt.subplots(3,1)
+ax[0].plot(t_spec,np.log10(peak_mag))
 plt.show()
-print(t_spec[1])
